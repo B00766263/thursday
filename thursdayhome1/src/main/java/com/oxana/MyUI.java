@@ -6,11 +6,8 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.shared.ui.ContentMode;
+import com.vaadin.ui.*;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -26,17 +23,32 @@ public class MyUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
         final VerticalLayout layout = new VerticalLayout();
         
-        final TextField name = new TextField();
-        name.setCaption("Please, type your name here:");
+       Label label = new Label("Hello", ContentMode.HTML);
+        String text = "Whoo";
+        Notification n = new Notification(text);
+        Button button = new Button("add new");
 
-        Button button = new Button("Click Me, please");
         button.addClickListener(e -> {
-            layout.addComponent(new Label("Thanks " + name.getValue() 
-                    + ", it works!"));
-        });
+           // int x = Integer.parseInt(num1.getValue());
+            //int y = Integer.parseInt(num2.getValue());
+            //Notification.show(""+(x+y));
+            //layout.addComponent(new Label(""+(x+y)));
+            label.setValue("<h1>HELLO!!!!!</h1>");
+            n.show(text);
+                   });
+        button.setHeight("200px");
+        button.setWidth("200px");
+        ComboBox<String> cb = new ComboBox<String>("Title");
+        cb.setItems("Mrs", "Ms", "Mr", "Dr", "Fr");
+        cb.setPlaceholder("Ms");
+
+        Slider s = new Slider(1.0, 300.0, 10);
         
-        layout.addComponents(name, button);
         
+         layout.setSpacing(true);
+        layout.addComponents(label, cb, button,s);
+      
+
         setContent(layout);
     }
 
